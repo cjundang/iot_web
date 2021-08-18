@@ -23,7 +23,7 @@
         </div>
         <div class="col-4">
             <h2>Map</h2>
-            <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/maps/channel_show" frameborder="0"></iframe>
+            <iframe width="500px" height="300px" src="https://thingspeak.com/channels/1458406/maps/channel_show" frameborder="0"></iframe>
         </div>
     </div>
  
