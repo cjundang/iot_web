@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+
+ 
+
+</head>
+<body>
+ 
+    
+</body>
+<script>
+ 
+    function loadData(){
+        let url = "https://api.thingspeak.com/channels/1458406/feeds.json?results=3"           
+        $.getJSON( url, function( data ) {
+
+            console.log(data);
+            console.log(data.channel);
+            console.log(data.channel.field1);
+
+   
+
+         });
+    }
+    $(()=>{
+        
+    })
+
+  
+</script>
+</html>
+
+
