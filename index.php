@@ -1,56 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Weather@Home</h1>
-    <div class="row">
-        <div class="col-4">
-            <h2>Humidity</h2>
-            <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
-        </div>
-        <div class="col-4">
-            <h2>Temperature</h2>
-            <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
-        </div>
-        <div class="col-4">
-            <h2>Map</h2>
-            <iframe width="500px" height="300px" src="https://thingspeak.com/channels/1458406/maps/channel_show" frameborder="0"></iframe>
-        </div>
-    </div>
- 
+
+</head>
+<body>
+
+    <div id="mapdiv"></div>
+
     
+</body>
+<script>
 
- 
+let map;
 
-   
+function initMap() {
+  map = new google.maps.Map(document.getElementById("mapdiv"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+  });
+}
 
+    $(()=>{
+        let url = "https://api.thingspeak.com/channels/1458406/feeds.json?results=1"           
+        $.getJSON( url, function( data ) {
+            console.log(data);
+            console.log(data.channel);
+            console.log(data.channel.field1);
 
+            initMap();
+         });
+    })
 
-
-
-
-
-
-
-
-
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    -->
-  </body>
+  
+</script>
 </html>
+
+
