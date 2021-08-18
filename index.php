@@ -12,21 +12,26 @@
   </head>
   <body>
     <h1>Weather@Home</h1>
-  
-<div>
-    <h2>Humidity</h2>
-    <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
-</div>
+    <div class="row">
+        <div class="col-4">
+            <h2>Humidity</h2>
+            <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
+        </div>
+        <div class="col-4">
+            <h2>Temperature</h2>
+            <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
+        </div>
+        <div class="col-4">
+            <h2>Map</h2>
+            <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/maps/channel_show" frameborder="0"></iframe>
+        </div>
+    </div>
+ 
+    
 
-<div>
-    <h2>Temperature</h2>
-    <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
-</div>
-<div>
-    <h2>Map</h2>
-    <iframe width="500px" height="250px" src="https://thingspeak.com/channels/1458406/maps/channel_show" frameborder="0"></iframe>
-</div>
+ 
 
+   
 
 
 
