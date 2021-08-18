@@ -14,7 +14,7 @@
 
   
 <div>
-    <iframe width="300px" height="300px" src="https://thingspeak.com/channels/1458406/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
+    <iframe width="400px" height="200px" src="https://thingspeak.com/channels/1458406/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" frameborder="0"></iframe>
 
 </div>
 
