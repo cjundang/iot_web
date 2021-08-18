@@ -11,40 +11,41 @@
     <title>Hello, world!</title>
   </head>
   <body>
-
-    <h1>thingspeak</h1>
-    <div class="row">
-        <div class="col-3">
-            <canvas id="myChart" width="400" height="200"></canvas>
-        </div>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-3">
-            <div class="row">
-                <div class="col-4">
-                    <b>Temperature</b>
-                </div>
-                <div class="col-8">
-                    <span id="lastTemperature"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <b>Humidity</b>
-                </div>
-                <div class="col-8">
-                    <span id="lastHumidity"></span>
-                </div>
-            </div>
-            <div>
-                Last update <span id="lastupdate"></span>
+    <div class="container">
+        <h1>thingspeak</h1>
+        <div class="row">
+            <div class="col-6">
+                <canvas id="myChart" width="400" height="200"></canvas>
             </div>
         </div>
+    
+    
+    
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-4">
+                        <b>Temperature</b>
+                    </div>
+                    <div class="col-8">
+                        <span id="lastTemperature"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Humidity</b>
+                    </div>
+                    <div class="col-8">
+                        <span id="lastHumidity"></span>
+                    </div>
+                </div>
+                <div>
+                    Last update <span id="lastupdate"></span>
+                </div>
+            </div>
+        </div>    
     </div>
-
+    
 
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
@@ -57,7 +58,7 @@
   <script>
  
     function loadData(){
-        let url = "https://api.thingspeak.com/channels/1458406/feeds.json?results=3"           
+        let url = "https://api.thingspeak.com/channels/1458406/feeds.json?results=20"           
         $.getJSON( url, function( data ) {
             console.log(data);
              let feeds = data.feeds;
@@ -71,23 +72,34 @@
              let dateStr = d.getDate() + " "+ monthNames[d.getMonth()] + " " + d.getFullYear();
              dateStr += " " + d.getHours() + ":" + d.getMinutes();
              $("#lastupdate").text(dateStr);
+
+             var plot_data = Object();
+             var xlabel = [];
+             var data1 = [];
+
+             $.each(feeds, (k, v)=>{
+                var d = new Date(v.created_at);
+                xlabel.push(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+                data1.push(v.field1);
+             });
+
+             plot_data.xlabel =  xlabel;
+             plot_data.data = data1;
+             plot_data.label = data.channel.field1;
+
+            showChart(plot_data);
          });
-        setTimeout(loadData, 15000);
     }
 
-    function showChart(){
+    function showChart(data){
         var ctx = document.getElementById('myChart').getContext('2d');
-        
-        var xlabel =  [1,2,3,4,5,6,7];
-        var data1 = [65, 59, 80, 81, 56, 55, 40];
-
         var myChart = new Chart(ctx, {
             type: 'line',
             data:  {
-                labels:xlabel,
+                labels:data.xlabel,
                 datasets: [{
-                    label: 'My First Dataset',
-                    data: data1
+                    label: data.label,
+                    data: data.data
                     }
                 ]
             }
@@ -96,7 +108,8 @@
 
     $(()=>{
         loadData();
-        showChart();
+        
+        
     })
 
   
