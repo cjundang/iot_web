@@ -17,7 +17,7 @@ void setup()
   dht4.begin();
   WiFi.disconnect();
   delay(3000);
-   WiFi.begin("SSID","PASSWORD");
+   WiFi.begin("3BB_1317-2.4g","600600107");
   while ((!(WiFi.status() == WL_CONNECTED))){
     Serial.print(".");
     delay(300);
@@ -43,10 +43,8 @@ void loop()
     client.println("HTTP/1.1 200 OK");
     client.println("Content-Type: text/html");
     client.println("");
-    client.println("<!DOCTYPE HTML>");
-    client.println("<html>");
     client.println((dht4.readTemperature( )));
-    client.println("</html>");
+
 
     delay(1);
 

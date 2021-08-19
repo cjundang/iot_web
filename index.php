@@ -18,11 +18,17 @@ header('Access-Control-Allow-Origin: *');
     <div class="container">
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-8">
                 IP Addess <input type="text" id="ipaddress" value="192.168.0.156"/>
-                <button id="btnLoad" class="btn btn-primary"> GET </button>
+                <button id="btnLoad" class="btn btn-primary"> Start </button>
             </div>
-            
+        </div>
+
+        <div class="row" >
+            <div class="col-6" style="border: 1px solid;text-align:center; margin:30px ">
+                <span style="font-size: 50pt" id="temperature"></span> <br/>
+                <span id="lastupdate"></span>
+            </div>
         </div>
         
     </div>
@@ -30,26 +36,44 @@ header('Access-Control-Allow-Origin: *');
      <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   </body>
 
-  <script>
+<script>
+
+    var temp_list = [];
+    var idx = 0;
+    var QLEN = 20;
+  
     
-    function btnLoad_Click(){
-        //alert("Hello");
+    function loadData(){
         var ipaddress = $("#ipaddress").val();
         var url = "http://"+ipaddress;
-        
-        $.getJSON(url, function(data){
-            console.log(data);
-        });
+        $.getJSON(url)
+            .done(function(data){
+                console.log(data);
+                $("#temperature").text(data);
+                temp_list[idx%QLEN] = data;
+                idx++;
+                console.log(temp_list);
 
+                const d = new Date();
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"]
+                let dateStr = d.getDate() + " "+ monthNames[d.getMonth()] + " " + d.getFullYear();
+                dateStr += " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                $("#lastupdate").text(dateStr);
+             }).
+            fail(function(err){
+                console.log(err);
+            });
+        setTimeout(loadData, 2000);
     }
 
-
+    function btnLoad_Click(){
+        //alert("Hello");
+        loadData();
+    }
     $(()=>{
-        $("#btnLoad").click(btnLoad_Click);        
-        
+        $("#btnLoad").click(btnLoad_Click);           
     })
-
-  
 </script>
 
 
